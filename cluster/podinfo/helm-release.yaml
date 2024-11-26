@@ -20,4 +20,10 @@ spec:
     redis:
       enabled: false
     ingress:
-      enabled: false
+      enabled: true
+      className: nginx
+      hosts:
+        - host: podinfo.jagd.me
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
