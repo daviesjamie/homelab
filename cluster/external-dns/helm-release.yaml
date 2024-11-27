@@ -16,7 +16,7 @@ spec:
   interval: 50m
   values:
     fullnameOverride: external-dns-unifi
-    logLevel: &logLevel debug
+    logLevel: &logLevel info
     provider:
       name: webhook
       webhook:
@@ -48,8 +48,8 @@ spec:
           timeoutSeconds: 5
     extraArgs:
       - --ignore-ingress-tls-spec
-    policy: upsert-only
+    policy: sync
     sources: ["ingress", "service"]
-    txtOwnerId: k8s-external-dns
+    txtOwnerId: homelab
     txtPrefix: k8s.
     domainFilters: ["jagd.me"]
