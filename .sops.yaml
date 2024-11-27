@@ -3,9 +3,8 @@ keys:
   - &jagd_makani age1f2tqnz4ja42u9apjfl9yhjdp45zmpzjhupdzjecr2765spq955xqrvnq00
 
 creation_rules:
-  - path_regex: ^talos/(.*.ya?ml|talosconfig)$
+  - path_regex: ^talos/(.*\.ya?ml|talosconfig)$
     encrypted_regex: "((?i)(pass|secret($|[^N])|ca|crt|key|token|^data$|^stringData$))"
     key_groups:
       - age:
-          - *flux
           - *jagd_makani
