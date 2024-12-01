@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - external-dns.yaml
   - ingress-nginx.yaml
+  - jetstack.yaml
   - metallb.yaml
   - podinfo.yaml
