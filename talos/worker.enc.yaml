@@ -35,39 +35,46 @@ machine:
     # extraArgs:
     #     key: value
     # # The `extraMounts` field is used to add additional mounts to the kubelet container.
-    # extraMounts:
-    #     - destination: /var/lib/example # Destination is the absolute path where the mount will be placed in the container.
-    #       type: bind # Type specifies the mount kind.
-    #       source: /var/lib/example # Source specifies the source path of the mount.
-    #       # Options are fstab style mount options.
-    #       options:
-    #         - bind
-    #         - rshared
-    #         - rw
-    # # The `extraConfig` field is used to provide kubelet configuration overrides.
-    # extraConfig:
-    #     serverTLSBootstrap: true
-    # # The `KubeletCredentialProviderConfig` field is used to provide kubelet credential configuration.
-    # credentialProviderConfig:
-    #     apiVersion: kubelet.config.k8s.io/v1
-    #     kind: CredentialProviderConfig
-    #     providers:
-    #         - apiVersion: credentialprovider.kubelet.k8s.io/v1
-    #           defaultCacheDuration: 12h
-    #           matchImages:
-    #             - '*.dkr.ecr.*.amazonaws.com'
-    #             - '*.dkr.ecr.*.amazonaws.com.cn'
-    #             - '*.dkr.ecr-fips.*.amazonaws.com'
-    #             - '*.dkr.ecr.us-iso-east-1.c2s.ic.gov'
-    #             - '*.dkr.ecr.us-isob-east-1.sc2s.sgov.gov'
-    #           name: ecr-credential-provider
-    # # The `nodeIP` field is used to configure `--node-ip` flag for the kubelet.
-    # nodeIP:
-    #     # The `validSubnets` field configures the networks to pick kubelet node IP from.
-    #     validSubnets:
-    #         - 10.0.0.0/8
-    #         - '!10.0.0.3/32'
-    #         - fdc7::/16
+    extraMounts:
+      - destination: /var/openebs/local
+        type: bind
+        source: /var/openebs/local
+        options:
+          - rbind
+          - rshared
+          - rw
+          #     - destination: /var/lib/example # Destination is the absolute path where the mount will be placed in the container.
+          #       type: bind # Type specifies the mount kind.
+          #       source: /var/lib/example # Source specifies the source path of the mount.
+          #       # Options are fstab style mount options.
+          #       options:
+          #         - bind
+          #         - rshared
+          #         - rw
+          # # The `extraConfig` field is used to provide kubelet configuration overrides.
+          # extraConfig:
+          #     serverTLSBootstrap: true
+          # # The `KubeletCredentialProviderConfig` field is used to provide kubelet credential configuration.
+          # credentialProviderConfig:
+          #     apiVersion: kubelet.config.k8s.io/v1
+          #     kind: CredentialProviderConfig
+          #     providers:
+          #         - apiVersion: credentialprovider.kubelet.k8s.io/v1
+          #           defaultCacheDuration: 12h
+          #           matchImages:
+          #             - '*.dkr.ecr.*.amazonaws.com'
+          #             - '*.dkr.ecr.*.amazonaws.com.cn'
+          #             - '*.dkr.ecr-fips.*.amazonaws.com'
+          #             - '*.dkr.ecr.us-iso-east-1.c2s.ic.gov'
+          #             - '*.dkr.ecr.us-isob-east-1.sc2s.sgov.gov'
+          #           name: ecr-credential-provider
+          # # The `nodeIP` field is used to configure `--node-ip` flag for the kubelet.
+          # nodeIP:
+          #     # The `validSubnets` field configures the networks to pick kubelet node IP from.
+          #     validSubnets:
+          #         - 10.0.0.0/8
+          #         - '!10.0.0.3/32'
+          #         - fdc7::/16
   # Provides machine specific network configuration options.
   network: {}
   # # `interfaces` is used to define the network interface configuration.
@@ -82,7 +89,7 @@ machine:
   #           gateway: 192.168.2.1 # The route's gateway (if empty, creates link scope route).
   #           metric: 1024 # The optional metric for the route.
   #       mtu: 1500 # The interface's MTU.
-  #       
+  #
   #       # # Picks a network device using the selector.
   #       # # select a device with bus prefix 00:*.
   #       # deviceSelector:
@@ -199,12 +206,12 @@ machine:
   #         # The TLS configuration for the registry.
   #         tls:
   #             insecureSkipVerify: true # Skip TLS server certificate verification (not recommended).
-  #             
+  #
   #             # # Enable mutual TLS authentication with the registry.
   #             # clientIdentity:
   #             #     crt: LS0tIEVYQU1QTEUgQ0VSVElGSUNBVEUgLS0t
   #             #     key: LS0tIEVYQU1QTEUgS0VZIC0tLQ==
-  #         
+  #
   #         # # The auth configuration for this registry.
   #         # auth:
   #         #     username: username # Optional registry authentication.
@@ -265,7 +272,7 @@ machine:
   #       # A list of partitions to create on the disk.
   #       partitions:
   #         - mountpoint: /var/mnt/extra # Where to mount the partition.
-  #           
+  #
   #           # # The size of partition: either bytes or human readable representation. If `size:` is omitted, the partition is sized to occupy the full disk.
   #           # # Human readable representation.
   #           # size: 100 MB
@@ -317,11 +324,11 @@ machine:
   #             - # Deterministically generated key from the node UUID and PartitionLabel.
   #               nodeID: {}
   #               slot: 0 # Key slot number for LUKS2 encryption.
-  #               
+  #
   #               # # KMS managed encryption key.
   #               # kms:
   #               #     endpoint: https://192.168.88.21:4443 # KMS endpoint to Seal/Unseal the key.
-  #         
+  #
   #         # # Cipher kind to use for the encryption. Depends on the encryption provider.
   #         # cipher: aes-xts-plain64
   #         # # Defines the encryption sector size.
@@ -536,8 +543,8 @@ sops:
         UjM3eUticFhKL3RZR3JKSDRGTW16cEUKXJcBZtEiyXaxntsK+VLqBlzPVqeL+KwA
         MW0BgkpTN5r+CB9WzhVBOgPvGuNk+1kX9XldS3Y4ZsSrxN+7rjA0IQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2024-12-02T09:12:12Z"
-  mac: ENC[AES256_GCM,data:9DZkxB4NBTwirj9eTy5+GRBg4mSSMViZxqAKBJGadMXnNmFJiMf0xz+um1Mq9Q3ps7YPvwskYNPf6+mjacNvJfOCizYJoOSLx+RU5oEpW9jz8pR84VphKpwgdk25kX7TNXpmWAA7GzVzjL1iY3bFP8VG3LRxNj/O/1yx3XYh5JY=,iv:TkuPooOd/0mvzovsYtg2LI0X7ocnUIKHAaMegosKYZg=,tag:OlWbOTlnGaktYmRXW6kV4w==,type:str]
+  lastmodified: "2024-12-02T18:42:32Z"
+  mac: ENC[AES256_GCM,data:L6fzGGDS7h3lkgZyHaGi4FS3vopnK+k8GbwynVeUH1JKHAZuze0ezzo1tNPTBDvJzenuJNPel4+7x+ORkukCMWlTfrRCRl9NGv6gNvoa+hPfaLBjxyQm5ZnoQL4YvqkV68QefHZzsa6ckWg92UXWDHzPSyYL6xHwbxIFawfehRc=,iv:DOzDeTcQBOgm2QoS+eC9k5LIntHvcDzEVI9qhtIKUps=,tag:VV6dVrnHXbjpXVn3U+YtSQ==,type:str]
   pgp: []
   encrypted_regex: ((?i)(pass|secret($|[^N])|ca|crt|key|token|^data$|^stringData$))
   version: 3.9.1
