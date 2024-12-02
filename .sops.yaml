@@ -14,3 +14,7 @@ creation_rules:
     key_groups:
       - age:
           - *jagd_makani
+
+stores:
+  yaml:
+    indent: 2
