@@ -6,4 +6,5 @@ resources:
   - ingress-nginx.yaml
   - jetstack.yaml
   - metallb.yaml
+  - openebs.yaml
   - podinfo.yaml
