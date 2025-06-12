@@ -1,0 +1,22 @@
+---
+keys:
+  - &flux "age1359hy5a889g8ut40tyz9q9fvr06p2x74j8c2khfaqgjnvar6waus6e97dy"
+  - &jagd_makani "age1f2tqnz4ja42u9apjfl9yhjdp45zmpzjhupdzjecr2765spq955xqrvnq00"
+
+creation_rules:
+  - path_regex: talos/.*\.sops\.ya?ml
+    mac_only_encrypted: true
+    key_groups:
+      - age:
+          - *flux
+          - *jagd_makani
+  - path_regex: (bootstrap|kubernetes)/.*\.sops\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
+    mac_only_encrypted: true
+    key_groups:
+      - age:
+          - *flux
+          - *jagd_makani
+stores:
+  yaml:
+    indent: 2
