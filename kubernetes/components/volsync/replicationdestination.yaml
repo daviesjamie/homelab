@@ -1,0 +1,18 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: ${APP}-rdst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    accessModes: [ReadWriteOnce]
+    cacheStorageClassName: openebs-hostpath
+    capacity: ${CAPACITY}
+    cleanupCachePVC: true
+    cleanupTempPVC: true
+    copyMethod: Snapshot
+    repository: ${APP}-volsync
+    storageClassName: nfs-csi
+    volumeSnapshotClassName: nfs-csi
