@@ -28,7 +28,10 @@ spec:
               tag: 2.16.3@sha256:5622c95b4e22c6b95d4791563d8ace03ae16e3147e2cdf2016b938dc9341d30a
             env:
               PAPERLESS_ACCOUNT_EMAIL_VERIFICATION: none
+              PAPERLESS_CONSUMPTION_DIR: /nas/consumption
+              PAPERLESS_CONSUMER_POLLING: "60"
               PAPERLESS_DATA_DIR: /data
+              PAPERLESS_EXPORT_DIR: /nas/export
               PAPERLESS_PORT: &port 8000
               PAPERLESS_REDIS: redis://paperless-redis.default.svc.cluster.local:6379
               PAPERLESS_TIME_ZONE: Europe/London
@@ -81,3 +84,11 @@ spec:
           app:
             app:
               - path: /data
+      nas:
+        type: nfs
+        server: "nas.${SECRET_DOMAIN}"
+        path: /volume1/paperless
+        advancedMounts:
+          app:
+            app:
+              - path: /nas
