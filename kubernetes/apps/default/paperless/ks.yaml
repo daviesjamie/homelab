@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/database
     - ../../../../components/volsync
   decryption:
     provider: sops
@@ -21,6 +22,8 @@ spec:
     substitute:
       APP: *app
       CAPACITY: 30Gi
+      DB_SIZE: 10Gi
+      DB_PASS_SECRET: paperless-db-user
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
