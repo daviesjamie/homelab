@@ -6,31 +6,8 @@ vars:
   CLUSTER_SECRETS_FILE: "kubernetes/components/common/sops/cluster-secrets.sops.yaml"
 
 tasks:
-  list:
-    desc: List backup snapshots [APP=required]
-    cmds:
-      - task: .restic
-        vars:
-          APP: "{{.APP}}"
-          CMD: snapshots
-    requires:
-      vars: [APP]
-
-  dump:
-    desc: Dump a backup to a local folder [APP=required] [TARGET=required] [SNAPSHOT]
-    cmds:
-      - task: .restic
-        vars:
-          APP: "{{.APP}}"
-          CMD: restore {{.SNAPSHOT}} --target {{.TARGET}}
-    vars:
-      SNAPSHOT: '{{.SNAPSHOT | default "latest" }}'
-    requires:
-      vars: [APP]
-
-  .restic:
-    internal: true
-    desc: Wrapper around the `restic` command that grabs secrets using sops
+  cmd:
+    desc: Run an arbitrary `restic` command [APP=required] [CMD=required]
     dir: "{{.ROOT_DIR}}"
     cmd: restic {{.CMD}}
     vars:
@@ -44,5 +21,27 @@ tasks:
       RESTIC_PASSWORD:
         sh: sops exec-file {{.CLUSTER_SECRETS_FILE}} 'yq ".stringData.VOLSYNC_RESTIC_PASSWORD" {}'
       RESTIC_REPOSITORY: s3:{{.REPOSITORY_BASE}}/{{.APP}}
+    requires:
+      vars: [APP]
+
+  dump:
+    desc: Dump a backup to a local folder [APP=required] [TARGET=required] [SNAPSHOT]
+    cmds:
+      - task: cmd
+        vars:
+          APP: "{{.APP}}"
+          CMD: restore {{.SNAPSHOT}} --target {{.TARGET}}
+    vars:
+      SNAPSHOT: '{{.SNAPSHOT | default "latest" }}'
+    requires:
+      vars: [APP]
+
+  list:
+    desc: List backup snapshots [APP=required]
+    cmds:
+      - task: cmd
+        vars:
+          APP: "{{.APP}}"
+          CMD: snapshots
     requires:
       vars: [APP]
