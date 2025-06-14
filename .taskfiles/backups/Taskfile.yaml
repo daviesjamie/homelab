@@ -1,0 +1,48 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  CLUSTER_SECRETS_FILE: "kubernetes/components/common/sops/cluster-secrets.sops.yaml"
+
+tasks:
+  list:
+    desc: List backup snapshots [APP=required]
+    cmds:
+      - task: .restic
+        vars:
+          APP: "{{.APP}}"
+          CMD: snapshots
+    requires:
+      vars: [APP]
+
+  dump:
+    desc: Dump a backup to a local folder [APP=required] [TARGET=required] [SNAPSHOT]
+    cmds:
+      - task: .restic
+        vars:
+          APP: "{{.APP}}"
+          CMD: restore {{.SNAPSHOT}} --target {{.TARGET}}
+    vars:
+      SNAPSHOT: '{{.SNAPSHOT | default "latest" }}'
+    requires:
+      vars: [APP]
+
+  .restic:
+    internal: true
+    desc: Wrapper around the `restic` command that grabs secrets using sops
+    dir: "{{.ROOT_DIR}}"
+    cmd: restic {{.CMD}}
+    vars:
+      REPOSITORY_BASE:
+        sh: sops exec-file {{.CLUSTER_SECRETS_FILE}} 'yq ".stringData.VOLSYNC_B2_BASE" {}'
+    env:
+      AWS_ACCESS_KEY_ID:
+        sh: sops exec-file {{.CLUSTER_SECRETS_FILE}} 'yq ".stringData.VOLSYNC_B2_ACCESS_KEY_ID" {}'
+      AWS_SECRET_ACCESS_KEY:
+        sh: sops exec-file {{.CLUSTER_SECRETS_FILE}} 'yq ".stringData.VOLSYNC_B2_SECRET_ACCESS_KEY" {}'
+      RESTIC_PASSWORD:
+        sh: sops exec-file {{.CLUSTER_SECRETS_FILE}} 'yq ".stringData.VOLSYNC_RESTIC_PASSWORD" {}'
+      RESTIC_REPOSITORY: s3:{{.REPOSITORY_BASE}}/{{.APP}}
+    requires:
+      vars: [APP]
