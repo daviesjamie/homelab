@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=https://kubernetesjsonschema.dev/v1.18.1-standalone-strict/secret-v1.json
 apiVersion: v1
 kind: Secret
+type: kubernetes.io/basic-auth
 metadata:
-  name: paperless-credentials
+  name: paperless-db-user
 stringData:
-  PAPERLESS_ADMIN_USER: ENC[AES256_GCM,data:tUfGvg==,iv:WPyP0eT9DC0Y1xuQt+G21SArYklf69HhEmn1wcZcZi8=,tag:NU3HYKdXWu7n2fc4OdVAIg==,type:str]
-  PAPERLESS_ADMIN_PASSWORD: ENC[AES256_GCM,data:ujKmmdosoKTrVI/uC+pFy+UV,iv:M3y0TrZ75YgURnCuDrYg6MFE5+BtCtmJwW683fHV6Yo=,tag:eTvq2BEP3MVXx8b9fzYlRA==,type:str]
-  PAPERLESS_SECRET_KEY: ENC[AES256_GCM,data:9kzBQNknaTn4tDgdurlCSuwxRNioqeKzFmmSezeIzwKVPXWhUwIMBussXg/KD9kyscY=,iv:wP6cC60iPEDZjiBqQyKslgmBfB4WgebiSm6+DfJDlPo=,tag:SFDS9VPBjGXFxZAkeisJFw==,type:str]
+  username: ENC[AES256_GCM,data:HIpclKhpgXwr,iv:iJ8Cs9UWwmFs/zgN8KOLZWeViXxpSCctfP9LbSp8Ag4=,tag:TeaYpcFxUTylKOQ6SH+3EQ==,type:str]
+  password: ENC[AES256_GCM,data:7eVhug5wy40KWY+wslCHd2ZIA/uX0RXKRrpcWuCQ7gM=,iv:CzHlYFToBfqe/GmSyCtWjshmfJITm7ONkDuSxyoVI+4=,tag:ZnshNKgipkynKsUvUZ7TqA==,type:str]
 sops:
   age:
     - recipient: age1359hy5a889g8ut40tyz9q9fvr06p2x74j8c2khfaqgjnvar6waus6e97dy
@@ -27,8 +27,8 @@ sops:
         RzdFR2xzUzNHc1FkK1RNUm1HSmhZN28K3WUPjKTXyMHZV2oL65BDXgLD+A6exqci
         t+S1mJCBXg/vfSCRhR85nTLe3v2OilHh8Q2nTGFOQMRMzOrBEGYmWQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-06-14T17:41:03Z"
-  mac: ENC[AES256_GCM,data:SJ0FNrxYzIOmXjixcqXnxd/XpxQbemoki63vFe2o1L+nqUYO+Vr5ZdSLks/OGTs/DL8hjzEiM/rTmcM1+v4hCZU+Q0Cfh+F0o8tzJFvlEUgq6aTku3jK9E5DdSjv3vCLRTVTLL2pQfAbtq8zDd6i4zmQMRGddtVd6dPUiPxvFD0=,iv:0JIgilzf8DCEGxEuxL7LC4iOJj1JG8iwEecfRT6AjF4=,tag:zrW9RtXQbwbmS6fy61boEQ==,type:str]
+  lastmodified: "2025-06-14T18:51:16Z"
+  mac: ENC[AES256_GCM,data:kDLxbX9B/cHxMJFHq2PytbTgFkcQ0ZPKajBH/n49lSzne3qhThNKPsjLzX6+vRKw8LJn3OjBRjGq2QyYul2WBMRVsIhs08fC/kCXoYUV2y+kgU9wSIgzp6Cmj8QR0IQa+pHDeEsTLLlTONidbdci7eeKIuggpt/gdHiY6xDHxTE=,iv:z+pK/wccl1Woxhr0sm4kmdXwy3P5Pr/BvSpsI7mZ6/0=,tag:VdSBDvaH9xALWzJniG9QAg==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.10.2

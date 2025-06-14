@@ -2,11 +2,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: postgresql-16-nightly
-  namespace: database
+  name: ${APP}-nightly
 spec:
-  schedule: "0 30 3 * * *"
+  schedule: "0 ${DB_BACKUP_JITTER:=0} 4 * * *"
   backupOwnerReference: self
   cluster:
-    name: postgresql-16
+    name: ${APP}
   immediate: true
