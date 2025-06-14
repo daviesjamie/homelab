@@ -2,32 +2,37 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgresql-16
-  namespace: database
+  name: ${APP}
 spec:
-  instances: 1
+  instances: ${DB_INSTANCES:=1}
   imageName: ghcr.io/cloudnative-pg/postgresql:16.4-4
   primaryUpdateStrategy: unsupervised
   storage:
     storageClass: openebs-hostpath
-    size: 10Gi
+    size: ${DB_SIZE:=5Gi}
   superuserSecret:
-    name: cloudnative-pg-superuser
+    name: ${APP}-cloudnative-pg-superuser
   enableSuperuserAccess: true
   backup:
     barmanObjectStore:
-      destinationPath: s3://${CNPG_BUCKET_NAME}/
+      destinationPath: s3://${CNPG_BUCKET_NAME}/${APP}
       endpointURL: ${B2_ENDPOINT_URL}
       serverName: postgresql-16-v1
       s3Credentials:
         accessKeyId:
-          name: cloudnative-pg-b2-credentials
+          name: ${APP}-cloudnative-pg-b2-credentials
           key: accessKeyId
         secretAccessKey:
-          name: cloudnative-pg-b2-credentials
+          name: ${APP}-cloudnative-pg-b2-credentials
           key: secretAccessKey
       data:
         compression: bzip2
       wal:
         compression: bzip2
     retentionPolicy: "14d"
+  bootstrap:
+    initdb:
+      database: ${DB_NAME:=${APP}}
+      owner: ${DB_USER:=${APP}}
+      secret:
+        name: ${APP}-db-user
