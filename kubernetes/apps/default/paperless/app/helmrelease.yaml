@@ -31,9 +31,9 @@ spec:
               PAPERLESS_ACCOUNT_EMAIL_VERIFICATION: none
               PAPERLESS_CONSUMPTION_DIR: /nas/consumption
               PAPERLESS_CONSUMER_POLLING: "60"
-              PAPERLESS_DATA_DIR: /local/data
+              PAPERLESS_DATA_DIR: /data/data
               PAPERLESS_EXPORT_DIR: /nas/export
-              PAPERLESS_MEDIA_ROOT: /local/media
+              PAPERLESS_MEDIA_ROOT: /data/media
               PAPERLESS_PORT: &port 8000
               PAPERLESS_REDIS: redis://paperless-redis.default.svc.cluster.local:6379
               PAPERLESS_TIME_ZONE: Europe/London
@@ -77,15 +77,13 @@ spec:
                 port: *port
 
     persistence:
-      local:
+      data:
         type: persistentVolumeClaim
-        storageClass: openebs-hostpath
-        accessMode: ReadWriteOnce
-        size: 30Gi
+        existingClaim: paperless
         advancedMounts:
           app:
             app:
-              - path: /local
+              - path: /data
       nas:
         type: nfs
         server: "nas.${SECRET_DOMAIN}"
