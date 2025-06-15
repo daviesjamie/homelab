@@ -2,20 +2,21 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: ${APP}
+  name: paperless-db
+  namespace: database
 spec:
-  instances: ${DB_INSTANCES:=1}
+  instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:16.4-4
   primaryUpdateStrategy: unsupervised
   storage:
     storageClass: openebs-hostpath
-    size: ${DB_SIZE:=5Gi}
+    size: 10Gi
   superuserSecret:
-    name: ${APP}-cloudnative-pg-superuser
+    name: cloudnative-pg-superuser
   enableSuperuserAccess: true
   bootstrap:
     initdb:
-      database: ${DB_NAME:=${APP}}
-      owner: ${DB_USER:=${APP}}
+      database: paperless
+      owner: paperless
       secret:
-        name: ${APP}-db-user
+        name: paperless-db-user

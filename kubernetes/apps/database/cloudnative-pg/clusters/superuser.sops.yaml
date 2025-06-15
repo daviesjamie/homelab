@@ -2,7 +2,8 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: ${APP}-cloudnative-pg-superuser
+  name: cloudnative-pg-superuser
+  namespace: database
 stringData:
   username: ENC[AES256_GCM,data:bNdEn4g+L5U=,iv:Oc8HP+7N5R9k08eQehC7AUVeDztKFiX2KFaNqnNaM6U=,tag:0Miu/fQ/PQFvMkwPBA8H8Q==,type:str]
   password: ENC[AES256_GCM,data:f70yyDXoqqN9opFmSolaiX8Yu4Sp0U3W8NFLwRWcmbo=,iv:oRZAGIfOr+2xDM0Z81s64ijDNtcciZsLAAwxZZ/d7UY=,tag:MLH2PUBz+/vKX+UME8f2cQ==,type:str]

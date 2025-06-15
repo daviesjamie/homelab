@@ -1,0 +1,39 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cloudnative-pg-backup
+  namespace: database
+spec:
+  schedule: "0 2 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: paperless-db-backup
+              image: ghcr.io/cloudnative-pg/postgresql:16.4-4
+              command: [/bin/sh]
+              args: ["-c", "pg_dump paperless | gzip > /backup/paperless.gz"]
+              env:
+                - name: PGHOST
+                  value: paperless-rw.default.svc.cluster.local
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: paperless-db-user
+                      key: username
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: paperless-db-user
+                      key: password
+              volumeMounts:
+                - name: volsync-backup-vol
+                  mountPath: /backup
+          volumes:
+            - name: volsync-backup-vol
+              persistentVolumeClaim:
+                claimName: cloudnative-pg-clusters
