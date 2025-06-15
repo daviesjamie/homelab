@@ -4,7 +4,7 @@ kind: Secret
 type: kubernetes.io/basic-auth
 metadata:
   name: paperless-db-user
-  namespace: default
+  namespace: database
 stringData:
   username: ENC[AES256_GCM,data:HIpclKhpgXwr,iv:iJ8Cs9UWwmFs/zgN8KOLZWeViXxpSCctfP9LbSp8Ag4=,tag:TeaYpcFxUTylKOQ6SH+3EQ==,type:str]
   password: ENC[AES256_GCM,data:7eVhug5wy40KWY+wslCHd2ZIA/uX0RXKRrpcWuCQ7gM=,iv:CzHlYFToBfqe/GmSyCtWjshmfJITm7ONkDuSxyoVI+4=,tag:ZnshNKgipkynKsUvUZ7TqA==,type:str]
