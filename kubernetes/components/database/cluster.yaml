@@ -13,23 +13,6 @@ spec:
   superuserSecret:
     name: ${APP}-cloudnative-pg-superuser
   enableSuperuserAccess: true
-  backup:
-    barmanObjectStore:
-      destinationPath: s3://${CNPG_BUCKET_NAME}/${APP}
-      endpointURL: ${B2_ENDPOINT_URL}
-      serverName: postgresql-16-v1
-      s3Credentials:
-        accessKeyId:
-          name: ${APP}-cloudnative-pg-b2-credentials
-          key: accessKeyId
-        secretAccessKey:
-          name: ${APP}-cloudnative-pg-b2-credentials
-          key: secretAccessKey
-      data:
-        compression: bzip2
-      wal:
-        compression: bzip2
-    retentionPolicy: "14d"
   bootstrap:
     initdb:
       database: ${DB_NAME:=${APP}}
