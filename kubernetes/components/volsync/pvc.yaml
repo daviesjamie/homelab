@@ -2,15 +2,15 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ${APP}
+  name: ${VOLSYNC_VOLUME_NAME:-${APP}}
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: ${CAPACITY}
+      storage: ${VOLSYNC_VOLUME_CAPACITY}
   storageClassName: nfs-csi
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: ${APP}-rdst
+    name: ${VOLSYNC_VOLUME_NAME:-${APP}}-rdst

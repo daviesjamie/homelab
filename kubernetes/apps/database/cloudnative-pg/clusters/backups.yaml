@@ -36,4 +36,4 @@ spec:
           volumes:
             - name: volsync-backup-vol
               persistentVolumeClaim:
-                claimName: cloudnative-pg-clusters
+                claimName: cloudnative-pg-backups
