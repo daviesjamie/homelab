@@ -19,7 +19,7 @@ spec:
               args: ["-c", "pg_dump paperless | gzip > /backup/paperless.gz"]
               env:
                 - name: PGHOST
-                  value: paperless-rw.default.svc.cluster.local
+                  value: paperless-db-rw.database.svc.cluster.local
                 - name: PGUSER
                   valueFrom:
                     secretKeyRef:
