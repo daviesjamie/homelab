@@ -40,7 +40,7 @@ spec:
               PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
 
               PAPERLESS_DBENGINE: postgresql
-              PAPERLESS_DBHOST: paperless-rw.database.svc.cluster.local
+              PAPERLESS_DBHOST: paperless-db-rw.database.svc.cluster.local
               PAPERLESS_DBNAME: paperless
               PAPERLESS_DBUSER:
                 valueFrom:
