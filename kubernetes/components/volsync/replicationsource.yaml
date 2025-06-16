@@ -2,14 +2,14 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: ${APP}
+  name: ${VOLSYNC_VOLUME_NAME:-${APP}}
 spec:
-  sourcePVC: ${APP}
+  sourcePVC: ${VOLSYNC_VOLUME_NAME:-${APP}}
   trigger:
     schedule: "${VOLSYNC_JITTER:=0} 3 * * *"
   restic:
     pruneIntervalDays: 14
-    repository: ${APP}-volsync
+    repository: ${VOLSYNC_VOLUME_NAME:-${APP}}-volsync
     retain:
       daily: 7
       weekly: 4
