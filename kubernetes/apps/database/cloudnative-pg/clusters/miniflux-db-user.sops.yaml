@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://kubernetesjsonschema.dev/v1.18.1-standalone-strict/secret-v1.json
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/basic-auth
+metadata:
+  name: miniflux-db-user
+  namespace: database
+stringData:
+  username: ENC[AES256_GCM,data:Zml3RgMKg2A=,iv:BnGXQbk0r4Iu9Fp7ABjwun3LhLFKi7j0YULNlrIw5W0=,tag:D3p1zJ1hZed3+TlZsVM0rA==,type:str]
+  password: ENC[AES256_GCM,data:xom9vFgudRNMNbyK7qSZovWflf1WIP6BoMi4KykfvAk=,iv:k/JJ+tXxj85gqjvCTfhmoFpmRL+KaW4PQ/9wn2swXc4=,tag:pUzQfhBeMmJ+QB3efJO1Wg==,type:str]
+sops:
+  age:
+    - recipient: age1359hy5a889g8ut40tyz9q9fvr06p2x74j8c2khfaqgjnvar6waus6e97dy
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBEbWQ5eG9GNEFDWVhaNjJW
+        dUQrK3p6THEzZGNiTkRDNDRQWEhhVTVKdlVNCmEyVTR3NDAra0NGd3hGYkZlTTQ2
+        SUx4VUoxbEh4U2lZNlFvVmRJWlg3MmcKLS0tIHorZWRIdU1vd3VRQkllbnZpeXZC
+        ekcyTm9VbTJUYStzOVJhWFZZNGZzUkEKmyz82YXLgGzcvNEYhSet/QD16Sr/3AaU
+        OPpD2rFUh0X3lSywM/Aux0GjwQRfQ7+WwX1zb6xWUnTM/Lt9Ylv+pA==
+        -----END AGE ENCRYPTED FILE-----
+    - recipient: age1f2tqnz4ja42u9apjfl9yhjdp45zmpzjhupdzjecr2765spq955xqrvnq00
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBIOFBaMnZuMXc2dVdGUXZi
+        ZnNKZVlRenkzeEM3a2dSNXlmRGZkSHczcVNJCi9QUmVJSXJUV3Y1SWFSQUM4SGhL
+        ODg5aVVKUEdsRDZRbzJVQlNvR0x4SmcKLS0tIEFXYnhjVGhVcDVNSXpZNGZrczVZ
+        RzdFR2xzUzNHc1FkK1RNUm1HSmhZN28K3WUPjKTXyMHZV2oL65BDXgLD+A6exqci
+        t+S1mJCBXg/vfSCRhR85nTLe3v2OilHh8Q2nTGFOQMRMzOrBEGYmWQ==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2025-07-18T20:53:17Z"
+  mac: ENC[AES256_GCM,data:Ign5AOHy4LVEE3sTjDN8ZUMygbv2CZV7WvLlinGugXgUNpwXkGfce8efW9owdZpAcF4ovbfm6ysKOX8EUIS/+VLyDFPD1S8tzkAtQpgHmpJ7qsPqItn3iKjXooOjavPhf9WsbiC8oZhBVXoG2L4j+Pu8jw6SVW2RZUWBHcKAt/0=,iv:MID4b54YZQcspd2ZrDldDW6eLJaHm0pil3HBXIekdIo=,tag:aB/aAX5InNJDpvYn0xgQAA==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.10.2

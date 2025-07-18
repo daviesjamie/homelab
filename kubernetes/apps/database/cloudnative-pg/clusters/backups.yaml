@@ -13,6 +13,27 @@ spec:
         spec:
           restartPolicy: Never
           containers:
+            - name: miniflux-db-backup
+              image: ghcr.io/cloudnative-pg/postgresql:16.4-4
+              command: [/bin/sh]
+              args: ["-c", "pg_dump miniflux | gzip > /backup/miniflux.gz"]
+              env:
+                - name: PGHOST
+                  value: miniflux-db-rw.database.svc.cluster.local
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: miniflux-db-user
+                      key: username
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: miniflux-db-user
+                      key: password
+              volumeMounts:
+                - name: volsync-backup-vol
+                  mountPath: /backup
+
             - name: paperless-db-backup
               image: ghcr.io/cloudnative-pg/postgresql:16.4-4
               command: [/bin/sh]
@@ -33,6 +54,7 @@ spec:
               volumeMounts:
                 - name: volsync-backup-vol
                   mountPath: /backup
+
           volumes:
             - name: volsync-backup-vol
               persistentVolumeClaim:
