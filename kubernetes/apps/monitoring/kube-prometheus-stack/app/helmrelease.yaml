@@ -26,13 +26,8 @@ spec:
         name: prometheus-community
         namespace: monitoring
   values:
-    crds:
-      enabled: true
-      upgradeJob:
-        enabled: true
-        forceConflicts: true
-    cleanPrometheusOperatorObjectNames: true
     alertmanager:
+      enabled: true
       route:
         main:
           enabled: true
@@ -51,21 +46,25 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
-    kubeEtcd:
-      service:
-        selector:
-          component: kube-apiserver
+    cleanPrometheusOperatorObjectNames: true
+    crds:
+      enabled: true
+      upgradeJob:
+        enabled: true
+        forceConflicts: true
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+    kubeControllerManager:
+      enabled: true
+      endpoints: [192.168.10.8]
     kubeProxy:
       enabled: false
-    grafana:
-      route:
-        main:
-          enabled: true
-          hostnames: ["grafana.${SECRET_DOMAIN}"]
-          parentRefs:
-            - name: internal
-              namespace: kube-system
+    kubeScheduler:
+      enabled: true
+      endpoints: [192.168.10.8]
     prometheus:
+      enabled: true
       route:
         main:
           enabled: true
@@ -74,6 +73,8 @@ spec:
             - name: internal
               namespace: kube-system
       prometheusSpec:
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
         retention: 14d
         retentionSize: 15GiB
         storageSpec:
