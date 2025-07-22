@@ -73,6 +73,102 @@ spec:
         existingSecret: grafana-credentials
         userKey: adminUsername
         passwordKey: adminPassword
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+            - name: default
+              orgId: 1
+              folder: ""
+              type: file
+              disableDeletion: false
+              editable: true
+              options:
+                path: /var/lib/grafana/dashboards/default
+      dashboards:
+        default:
+          cert-manager:
+            # renovate: depName="Cert-manager-Kubernetes"
+            gnetId: 20842
+            revision: 3
+            datasource: Prometheus
+          cloudflared:
+            # renovate: depName="Cloudflare Tunnels (cloudflared)"
+            gnetId: 17457
+            revision: 6
+            datasource:
+              - { name: DS_PROMETHEUS, value: Prometheus }
+          envoy:
+            # renovate: depName="Envoy Proxy Monitoring gRPC"
+            gnetId: 23239
+            revision: 1
+            datasource:
+              - { name: DS_AFRANET_PROMETHEUS, value: Prometheus }
+          external-dns:
+            # renovate: depName="External-dns"
+            gnetId: 15038
+            revision: 3
+            datasource: Prometheus
+          kubernetes-api-server:
+            # renovate: depName="Kubernetes / System / API Server"
+            gnetId: 15761
+            revision: 19
+            datasource: Prometheus
+          kubernetes-coredns:
+            # renovate: depName="Kubernetes / System / CoreDNS"
+            gnetId: 15762
+            revision: 20
+            datasource: Prometheus
+          kubernetes-global:
+            # renovate: depName="Kubernetes / Views / Global"
+            gnetId: 15757
+            revision: 43
+            datasource: Prometheus
+          kubernetes-namespaces:
+            # renovate: depName="Kubernetes / Views / Namespaces"
+            gnetId: 15758
+            revision: 42
+            datasource: Prometheus
+          kubernetes-nodes:
+            # renovate: depName="Kubernetes / Views / Nodes"
+            gnetId: 15759
+            revision: 35
+            datasource: Prometheus
+          kubernetes-pods:
+            # renovate: depName="Kubernetes / Views / Pods"
+            gnetId: 15760
+            revision: 36
+            datasource: Prometheus
+          kubernetes-volumes:
+            # renovate: depName="K8s / Storage / Volumes / Cluster"
+            gnetId: 11454
+            revision: 14
+            datasource: Prometheus
+          node-exporter-full:
+            # renovate: depName="Node Exporter Full"
+            gnetId: 1860
+            revision: 41
+            datasource:
+              - { name: DS_PROMETHEUS, value: Prometheus }
+          prometheus:
+            # renovate: depName="Prometheus"
+            gnetId: 19105
+            revision: 7
+            datasource: Prometheus
+          volsync:
+            # renovate: depName="VolSync Dashboard"
+            gnetId: 21356
+            revision: 3
+            datasource:
+              - { name: DS_PROMETHEUS, value: Prometheus }
+              - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
+      grafana.ini:
+        analytics:
+          check_for_updates: false
+          check_for_plugin_updates: false
+          reporting_enabled: false
+        news:
+          news_feed_enabled: false
     prometheus:
       enabled: true
       route:
