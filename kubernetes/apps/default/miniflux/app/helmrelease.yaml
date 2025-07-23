@@ -30,6 +30,8 @@ spec:
             env:
               BASE_URL: "https://miniflux.${SECRET_DOMAIN}"
               CREATE_ADMIN: "1"
+              METRICS_ALLOWED_NETWORKS: 10.0.0.0/8
+              METRICS_COLLECTOR: 1
               PORT: &port 8080
               RUN_MIGRATIONS: "1"
             envFrom:
