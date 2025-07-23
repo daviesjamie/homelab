@@ -9,10 +9,10 @@ spec:
     groupBy:
       - "alertname"
       - "job"
-    groupInterval: 10m
-    groupWait: 1m
+    groupInterval: 30s
+    groupWait: 10s
     receiver: pushover
-    repeatInterval: 12h
+    repeatInterval: 30m
   receivers:
     - name: pushover
       pushoverConfigs:
