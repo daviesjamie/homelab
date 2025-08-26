@@ -34,6 +34,7 @@ spec:
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
       enabled: true
+      config: {}
       route:
         main:
           enabled: true
