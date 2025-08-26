@@ -70,7 +70,7 @@ spec:
             - name: internal
               namespace: kube-system
       admin:
-        existingSecret: grafana-credentials
+        existingSecret: grafana-admin-credentials
         userKey: adminUsername
         passwordKey: adminPassword
       dashboardProviders:
