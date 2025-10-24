@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.18.2@sha256:fbe142ff2e02713740329ebb5981c6bb6fe54f8b4de18e98637c2ff586ea1935
+              tag: 2.19.2@sha256:e1e0026cdacda4bb157c024a8a1a343bd16b34d8900e7f3958598b9afebd0d38
             env:
               PAPERLESS_ACCOUNT_EMAIL_VERIFICATION: none
               PAPERLESS_CONSUMPTION_DIR: /nas/consumption
