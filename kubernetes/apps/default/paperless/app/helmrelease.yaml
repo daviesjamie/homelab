@@ -59,7 +59,7 @@ spec:
           app:
             image:
               repository: docker.io/valkey/valkey
-              tag: 8.1.3@sha256:fea8b3e67b15729d4bb70589eb03367bab9ad1ee89c876f54327fc7c6e618571
+              tag: 8.1.6@sha256:17b48e45a38d626ef0bc24358008faf2aaf85e7ffc913c3f992d263f27a60c13
 
     service:
       app:
