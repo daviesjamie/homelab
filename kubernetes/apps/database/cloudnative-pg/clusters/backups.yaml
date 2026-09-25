@@ -14,7 +14,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: paperless-db-backup
-              image: ghcr.io/cloudnative-pg/postgresql:16.4-4
+              image: ghcr.io/cloudnative-pg/postgresql:16.9-4
               command: [/bin/sh]
               args: ["-c", "pg_dump paperless | gzip > /backup/paperless.gz"]
               env:
